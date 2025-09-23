@@ -6,20 +6,33 @@ class Aspirador(joc.JocNoGrafic):
         if agents is None:
             agents = []
         super(Aspirador, self).__init__(agents=agents)
-        # TODO
+        self.habitacions = [False, False] # False = bruta, True = neta
+        self.posAsp = 0
+        self.fiJoc = False
 
 
     def _draw(self):
-        # TODO
-        pass
+        print(f"Aspirador a la habitació {'esquerra' if self.posAsp == 0 else 'dreta'}")
+        print(f"Habitació esquerra {'neta' if self.habitacions[0] == True else 'bruta'}")
+        print(f"Habitació dreta {'neta' if self.habitacions[0] == True else 'bruta'}")
 
 
     def percepcio(self):
-        # TODO
-        pass
+        return (self.posAsp, self.habitacions[self.posAsp])
 
 
     def _aplica(self, accio, params=None, agent_actual=None):
-        # TODO
-        pass
 
+        match accio:
+            case 'L':
+                self.posAsp = 0
+            case 'R':
+                self.posAsp = 1
+            case 'S':
+                self.habitacions[self.posAsp] = True
+            case _:
+                pass
+
+        if self.habitacions[0] and self.habitacions[1]:
+            self.fiJoc = True
+            print("Fi del joc")
