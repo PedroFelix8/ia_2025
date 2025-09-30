@@ -24,11 +24,11 @@ class Aspirador(joc.JocNoGrafic):
     def _aplica(self, accio, params=None, agent_actual=None):
 
         match accio:
-            case 'L':
+            case 'E':
                 self.posAsp = 0
-            case 'R':
+            case 'D':
                 self.posAsp = 1
-            case 'S':
+            case 'A':
                 self.habitacions[self.posAsp] = True
             case _:
                 pass

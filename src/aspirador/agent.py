@@ -52,10 +52,28 @@ class AspiradorTaula(Aspirador):
 
 class AspiradorReflex(Aspirador):
     def actua(self, percepcio: dict):
-        """ TODO """
+        if not percepcio["Net"]:
+            return "A"
+        elif percepcio["Loc"] == 0:
+            return "D"
+        else:
+            return "E"
 
 
 class AspiradorMemoria(Aspirador):
-    def actua(self, percepcio: dict):
-        """ TODO """
+    def __init__(self):
+        super().__init__()
+        self.habitacions = [False, False]
 
+    def actua(self, percepcio: dict):
+        if not percepcio["Net"]:
+            self.habitacions[percepcio["Loc"]] = True
+            return "A"
+        elif percepcio["Loc"] == 0 and not self.habitacions[1]:
+            self.habitacions[percepcio["Loc"]] = True
+            return "D"
+        elif percepcio["Loc"] == 1 and not self.habitacions[0]:
+            self.habitacions[percepcio["Loc"]] = True
+            return "E"
+        else:
+            return "S"
